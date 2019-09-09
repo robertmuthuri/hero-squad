@@ -54,6 +54,13 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: delete an individual hero.
+        get("/heroes/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToDelete = Integer.parseInt(req.params("id")); //pull id - must match route segment
+            Hero deleteHero = Hero.findById(idOfHeroToDelete); //use it to find post
+            deleteHero.deleteHero();
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
 
         //get: delete all heroes.
 

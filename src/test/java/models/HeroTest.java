@@ -78,4 +78,12 @@ public class HeroTest {
         assertEquals(1, Hero.getAll().size()); //one is left
         assertEquals(Hero.getAll().get(0).getId(), 2); //the one that was deleted has the id of 2. Why do we care?
     }
+    @Test
+    public void deleteAllHeroesDeletesAllHeroes() throws Exception {
+        Hero hero = setupNewHero();
+        Hero otherHero = setupNewHero();
+
+        Hero.clearAllHeroes();
+        assertEquals(0, Hero.getAll().size());
+    }
 }

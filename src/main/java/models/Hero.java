@@ -10,6 +10,13 @@ public class Hero {
     public Hero (String name) {
         this.name = name;
     }
+    public static ArrayList<Hero> getAll(){
+        return null;
+    }
+
+    public static void clearAllHeros(){
+        instances.clear();
+    }
 
     public String getName() {
         return name;

@@ -34,15 +34,23 @@ public class App {
             return new ModelAndView(model, "hero-detail.hbs"); //individual hero page.
         }, new HandlebarsTemplateEngine());
 
-        //get: process a form to update a hero.
+        //get: show a form to update a hero.
         get("/heroes/:id/update", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
+            Hero editHero = Hero.findById(idOfHeroToEdit);
+            model.put("editHero", editHero);
+            return new ModelAndView(model, "hero-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //get: process a form to update a hero.
+        post("/heroes/:id/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String newName = req.queryParams("name");
             int idOfHeroToEdit = Integer.parseInt(req.params("id"));
             Hero editHero = Hero.findById(idOfHeroToEdit);
             editHero.update(newName);
-            model.put("editHero", editHero);
-            return new ModelAndView(model, "hero-form.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process a new hero form.

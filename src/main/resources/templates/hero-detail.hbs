@@ -2,7 +2,9 @@
 
     <h5>ID: {{ hero.id }} </h5>
     <h5>Name: {{ hero.name }}</h5>
-    <a href="/heroes/{{hero.id}}/update">Edit this hero's name.</a>
+    <a href="/heroes/{{hero.id}}/update">Edit this post</a>
+    <br>
+    <a href="/heroes/{{hero.id}}/delete">DELETE this hero's record. (no undo)</a>
 {{/partial}}
 
 {{> layout.hbs}}

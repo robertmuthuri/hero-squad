@@ -70,4 +70,12 @@ public class HeroTest {
         assertEquals(formerId, hero.getId());
         assertNotEquals(formerName, hero.getName());
     }
+    @Test
+    public void deleteDeletesASpecificHero() throws Exception {
+        Hero hero = setupNewHero();
+        Hero otherHero = new Hero("Captain Marvel");
+        hero.deleteHero();
+        assertEquals(1, Hero.getAll().size()); //one is left
+        assertEquals(Hero.getAll().get(0).getId(), 2); //the one that was deleted has the id of 2. Why do we care?
+    }
 }

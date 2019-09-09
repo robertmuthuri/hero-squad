@@ -28,6 +28,8 @@ public class Hero {
 
     public void update(String name) { this.name = name; }
 
+    public oid deleteHero() { instances.remove(id-1) }
+
     public String getName() {
         return name;
     }

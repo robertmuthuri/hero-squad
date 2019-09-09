@@ -16,6 +16,9 @@ public class HeroTest {
     public void tearDown() throws Exception {
         Hero.clearAllHeros(); //Clears all heros before each test.
     }
+    public Hero setupNewHero(){
+        return new Hero("Tony Stark");
+    }
     @Test
     public void NewHeroObjectGetsCorrectlyCreated_true() throws Exception {
         Hero hero = new Hero("Tony Stark");
@@ -32,7 +35,6 @@ public class HeroTest {
         Hero otherHero = new Hero ("Chris Evans");
         assertEquals(2, Hero.getAll().size());
     }
-
     @Test
     public void AllHerosContainsAllHeros_true() {
         Hero hero = new Hero("Tony Stark");
@@ -45,5 +47,16 @@ public class HeroTest {
 //        Post.clearAllHeros();  // Remember, the test will fail without this line! We need to empty leftover Posts from previous tests!
         Hero myHero = new Hero("Tony Stark");
         assertEquals(1, myHero.getId());
+    }
+    @Test
+    public void findReturnsCorrectHero() throws Exception {
+        Hero hero = setupNewHero();
+        assertEquals(1, Hero.findById(hero.getId()).getId());
+    }
+    @Test
+    public void findReturnsCorrectHeroWhenMoreThanOneHeroExists() throws Exception {
+        Hero hero = setupNewHero();
+        Hero otherHero = new Hero("Captain America");
+        assertEquals(2, Hero.findById(otherHero.getId()).getId());
     }
 }

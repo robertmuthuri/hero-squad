@@ -40,4 +40,10 @@ public class HeroTest {
         assertTrue(Hero.getAll().contains(hero));
         assertTrue(Hero.getAll().contains(otherHero));
     }
+    @Test
+    public void getId_herosInstantiateWithAnID_1() throws Exception{
+//        Post.clearAllHeros();  // Remember, the test will fail without this line! We need to empty leftover Posts from previous tests!
+        Hero myHero = new Hero("Tony Stark");
+        assertEquals(1, myHero.getId());
+    }
 }

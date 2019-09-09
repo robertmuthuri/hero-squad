@@ -13,8 +13,8 @@ public class Hero {
 
     public Hero (String name) {
         this.name = name;
-
         instances.add(this);
+        this.id = instances.size();
     }
     public static ArrayList<Hero> getAll(){
         return instances;

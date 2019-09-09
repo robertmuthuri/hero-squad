@@ -35,6 +35,13 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: process a form to update a hero.
+        get("/heroes/:id/update", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
+            Hero editHero = Hero.findById(idOfHeroToEdit);
+            model.put("editHero", editHero);
+            return new ModelAndView(model, "newhero-form.hbs");
+        }, new HandlebarsTemplateEngine());
 
         //post: process a new hero form.
         post("/heroes/new", (request, response) -> { //URL to add a new hero on POST route

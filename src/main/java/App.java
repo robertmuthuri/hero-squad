@@ -37,8 +37,10 @@ public class App {
         //get: process a form to update a hero.
         get("/heroes/:id/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            String newName = req.queryParams("name");
             int idOfHeroToEdit = Integer.parseInt(req.params("id"));
             Hero editHero = Hero.findById(idOfHeroToEdit);
+            editHero.update(newName);
             model.put("editHero", editHero);
             return new ModelAndView(model, "hero-form.hbs");
         }, new HandlebarsTemplateEngine());

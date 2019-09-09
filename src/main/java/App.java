@@ -26,6 +26,13 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: show an individual hero.
+        get("/heroes/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToFind = Integer.parseInt(req.params(":id")); //pull id - must match route segment
+            Hero foundHero = Hero.findById(idOfHeroToFind); //use it to find hero
+            model.put("hero", foundHero); //add it to model for template to display
+            return new ModelAndView(model, "hero-detail.hbs"); //individual hero page.
+        }, new HandlebarsTemplateEngine());
 
         //get: process a form to update a hero.
 

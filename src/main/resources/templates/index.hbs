@@ -2,6 +2,15 @@
 
     <h1>Hero List!</h1>
 
+    {{#if heros}} <!--if heros exist, then -->
+    {{#each heros }} <!--loop-->
+    <p>Current hero:</p>
+    <p>{{ name }}</p> <!--show-->
+    {{/each}}
+    {{else}} <!--no heros!-->
+    <p>No heros!</p>
+    {{/if}}
+
     <p>Add a new Hero:</p>
 
     <form action="/heros/new" method="POST">

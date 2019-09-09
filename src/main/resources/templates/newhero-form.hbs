@@ -1,0 +1,14 @@
+{{#partial "content"}}
+
+    <p>Add a new Hero:</p>
+
+    <form action="/heroes/new" method="POST">
+        <label for="hero">Hero Name</label>
+        <input id="hero" name="hero" type="text">
+
+        <button type="submit" class="btn btn-default">Add hero</button>
+    </form>
+
+{{/partial}}
+
+{{> layout.hbs}}

@@ -7,7 +7,7 @@
 <body>
 <ul class="nav nav-tabs">
     <li role="presentation" class="active"><a href="/">Home</a></li>
-    <li role="presentation"><a href="/heros/new">Add a New Hero</a></li>
+    <li role="presentation"><a href="/heroes/new">Add a New Hero</a></li>
 
     <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -30,13 +30,14 @@
     <!--begin main template-->
     <div class="page-header">
         <img src="/images/avengers.png" width="70%" alt="Avengers Ensemble">
-        <h1>Welcome to my Hero-Squad. <small>Let's assemble some hero - squads.</small></h1>
+        <h1>Welcome to my Hero-Squad!</h1>
+        <h1><small>Let's assemble some hero - squads.</small></h1>
     </div>
 
     <div class="col-md-12">
         {{#block "content"}}
-        {{/block}}
 
+        {{/block}}
     </div>
 </div>
 <!--end main template-->
@@ -45,8 +46,8 @@
         <div class="container">
             <hr>
             <p class="text-muted">
-                <a href="/categories/delete">delete all squads & heros</a><br>
-                <a href="/tasks/delete">delete all heros</a>
+                <a href="/categories/delete">delete all squads & heroes</a><br>
+                <a href="/tasks/delete">delete all heroes</a>
             </p>
         </div>
     </footer>

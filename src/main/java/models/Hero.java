@@ -20,7 +20,7 @@ public class Hero {
         return instances;
     }
 
-    public static void clearAllHeros(){
+    public static void clearAllHeroes(){
         instances.clear();
     }
     public static Hero findById(int id){

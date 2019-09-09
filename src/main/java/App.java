@@ -14,7 +14,7 @@ public class App {
         //get: show new hero form
         get("/heroes/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "newhero-form.hbs");
+            return new ModelAndView(model, "hero-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //get: show all heroes
@@ -40,7 +40,7 @@ public class App {
             int idOfHeroToEdit = Integer.parseInt(req.params("id"));
             Hero editHero = Hero.findById(idOfHeroToEdit);
             model.put("editHero", editHero);
-            return new ModelAndView(model, "newhero-form.hbs");
+            return new ModelAndView(model, "hero-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process a new hero form.

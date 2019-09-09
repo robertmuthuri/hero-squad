@@ -23,9 +23,11 @@ public class Hero {
     public static void clearAllHeroes(){
         instances.clear();
     }
-    public static Hero findById(int id){
-        return instances.get(id-1);
-    }
+
+    public static Hero findById(int id){ return instances.get(id-1); }
+
+    public void update(String name) { this.name = name; }
+
     public String getName() {
         return name;
     }

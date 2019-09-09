@@ -59,4 +59,15 @@ public class HeroTest {
         Hero otherHero = new Hero("Captain America");
         assertEquals(2, Hero.findById(otherHero.getId()).getId());
     }
+    @Test
+    public void updateChangesHeroContent() throws Exception {
+        Hero hero = setupNewHero();
+        String formerName = hero.getName();
+        int formerId = hero.getId();
+
+        hero.update("Robert Muthuri");
+
+        assertEquals(formerId, hero.getId());
+        assertNotEquals(formerName, hero.getName());
+    }
 }

@@ -20,4 +20,9 @@ public class HeroTest {
         Hero hero = new Hero("Tony Stark");
         assertTrue(hero instanceof Hero);
     }
+    @Test
+    public void HeroInstantiatesWithName_true() throws Exception {
+        Hero hero = new Hero("Tony Stark");
+        assertEquals("Tony Stark", hero.getName());
+    }
 }

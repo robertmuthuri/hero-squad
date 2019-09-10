@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Hero {
     private String name;
@@ -13,43 +14,31 @@ public class Hero {
 
     public Hero (String name) {
         this.name = name;
-        instances.add(this);
-        this.id = instances.size();
+//        instances.add(this);
+//        this.id = instances.size();
     }
-    public static ArrayList<Hero> getAll(){
-        return instances;
-    }
+//    public static ArrayList<Hero> getAll() { return instances; }
 
-    public static void clearAllHeroes(){
-        instances.clear();
-    }
+//    public static void clearAllHeroes() { instances.clear(); }
 
-    public static Hero findById(int id){ return instances.get(id-1); }
+//    public static Hero findById(int id){ return instances.get(id-1); }
 
-    public void update(String name) { this.name = name; }
+//    public void update(String name) { this.name = name; }
 
-    public void deleteHero() { instances.remove(id-1); }
+//    public void deleteHero() { instances.remove(id-1); }
 
-    public String getName() {
-        return name;
-    }
+    //getters
+    public String getName() { return name; }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public int getAge() {
-        return age;
-    }
+    public int getAge() { return age; }
 
-    public String getPower() {
-        return power;
-    }
+    public String getPower() { return power; }
 
-    public String getWeakness() {
-        return weakness;
-    }
+    public String getWeakness() { return weakness; }
 
+    //Setters
     public void setWeakness(String weakness) {
         this.weakness = weakness;
     }
@@ -69,4 +58,22 @@ public class Hero {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hero hero = (Hero) o;
+        return getId() == hero.getId() &&
+                getAge() == hero.getAge() &&
+                Objects.equals(getName(), hero.getName()) &&
+                Objects.equals(getPower(), hero.getPower()) &&
+                Objects.equals(getWeakness(), hero.getWeakness());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getId(), getAge(), getPower(), getWeakness());
+    }
+}
 }

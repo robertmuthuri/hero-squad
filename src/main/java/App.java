@@ -58,7 +58,7 @@ public class App {
             return new ModelAndView(model, "hero-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        //get: process a form to update a hero.
+        //post: process a form to update a hero.
         post("/heroes/:id/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String newName = req.queryParams("name");

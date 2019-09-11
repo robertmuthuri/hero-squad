@@ -55,9 +55,7 @@ public class Hero {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     @Override
     public boolean equals(Object o) {
@@ -75,5 +73,4 @@ public class Hero {
     public int hashCode() {
         return Objects.hash(getName(), getId(), getAge(), getPower(), getWeakness());
     }
-}
 }

@@ -22,4 +22,34 @@ public class Sql2oHeroDaoTest {
     public void tearDown() throws Exception {
         conn.close();
     }
+
+    @Test
+    public void addingHeroSetsId() throws Exception {
+        Hero hero = setUpNewHero();
+        int originalHeroId = hero.getId();
+        heroDao.add(hero);
+        assertNotEquals(originalHeroId, hero.getId());
+    }
+
+    @Test
+    public void existingHerosCanBeFoundById() throws Exception {
+        Hero hero = setUpNewHero();
+        heroDao.add(hero);
+        Hero foundHero = heroDao.findById(hero.getId());
+        assertEquals(hero, foundHero);
+    }
+    @Test
+    public void addedHeroesAreReturnedFromgetAll() throws Exception {
+        Hero hero = setUpNewHero();
+        heroDao.add(hero);
+        assertEquals(1, heroDao.getAll().size());
+    }
+
+    @Test
+    public void noHeroesReturnsEmptyList() throws Exception {
+        assertEquals(0, heroDao.getAll().size());
+    }
+
+    //helper methods
+    public Hero setUpNewHero() { return new Hero("Tony Stark"); }
 }

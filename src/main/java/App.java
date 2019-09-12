@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import dao.Sql2oHeroDao;
 import models.Hero;
+import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import static spark.Spark.*;
@@ -10,6 +12,12 @@ import static spark.Spark.*;
 public class App {
     public static void main(String[] args) {
         staticFileLocation("/public");
+
+        // setup a production database and frontend DAO Sql2oTaskDao
+        String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
+        Sql2o sql2o = new Sql2o(connectionString,"","");
+        Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
+
 
         //get: show all heroes
         get("/", (request, response) -> {

@@ -22,7 +22,6 @@ public class Sql2oHeroDaoTest {
     public void tearDown() throws Exception {
         conn.close();
     }
-
     @Test
     public void addingHeroSetsId() throws Exception {
         Hero hero = setUpNewHero();
@@ -30,7 +29,6 @@ public class Sql2oHeroDaoTest {
         heroDao.add(hero);
         assertNotEquals(originalHeroId, hero.getId());
     }
-
     @Test
     public void existingHerosCanBeFoundById() throws Exception {
         Hero hero = setUpNewHero();
@@ -44,12 +42,35 @@ public class Sql2oHeroDaoTest {
         heroDao.add(hero);
         assertEquals(1, heroDao.getAll().size());
     }
-
     @Test
     public void noHeroesReturnsEmptyList() throws Exception {
         assertEquals(0, heroDao.getAll().size());
     }
-
+    // update test
+    @Test
+    public void updateChangesHeroName() throws Exception {
+        Hero hero = setUpNewHero();
+        heroDao.add(hero);
+        heroDao.update(hero.getId(),"Chris Evans");
+        Hero updatedHero = heroDao.findById(hero.getId()); //why do I need to refind this?
+        assertNotEquals(hero.getName(), updatedHero.getName());
+    }
+    // delete test
+    @Test
+    public void deleteByIdDeletesCorrectHero() throws Exception {
+        Hero hero = setUpNewHero();
+        heroDao.add(hero);
+        heroDao.deleteById(hero.getId());
+        assertEquals(0, heroDao.getAll().size());
+    }
+    //delete test
+    @Test
+    public void deleteByIdDeletesTheCorrectHero() throws Exception {
+        Hero hero = setUpNewHero();
+        heroDao.add(hero);
+        heroDao.deleteById(hero.getId());
+        assertEquals(0,heroDao.getAll().size());
+    }
     //helper methods
     public Hero setUpNewHero() { return new Hero("Tony Stark"); }
 }

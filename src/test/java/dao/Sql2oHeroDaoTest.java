@@ -57,7 +57,7 @@ public class Sql2oHeroDaoTest {
     }
     // delete test
     @Test
-    public void deleteByIdDeletesCorrectHero() throws Exception {
+    public void deleteByIdDeletesTheCorrectHero() throws Exception {
         Hero hero = setUpNewHero();
         heroDao.add(hero);
         heroDao.deleteById(hero.getId());
@@ -65,11 +65,14 @@ public class Sql2oHeroDaoTest {
     }
     //delete test
     @Test
-    public void deleteByIdDeletesTheCorrectHero() throws Exception {
+    public void deleteAllDeletesAll() throws Exception {
         Hero hero = setUpNewHero();
+        Hero otherHero = new Hero("Torney Starkey");
         heroDao.add(hero);
-        heroDao.deleteById(hero.getId());
-        assertEquals(0,heroDao.getAll().size());
+        heroDao.add(otherHero);
+        int daoSize = heroDao.getAll().size();
+        heroDao.clearAllHeroes();
+        assertTrue(daoSize > 0 && daoSize > heroDao.getAll().size());
     }
     //helper methods
     public Hero setUpNewHero() { return new Hero("Tony Stark"); }

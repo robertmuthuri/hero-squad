@@ -10,4 +10,10 @@ public class SquadTest {
         Squad squad = new Squad("Avengers");
         assertTrue(squad instanceof Squad);
     }
+
+    @Test
+    public void SquadInstantiatesWithName_true() throws Exception {
+        Squad squad = new Squad("Avengers");
+        assertEquals("Avengers", squad.getName());
+    }
 }

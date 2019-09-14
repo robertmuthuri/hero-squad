@@ -67,7 +67,7 @@ public class Sql2oHeroDao implements HeroDao {
     }
     @Override
     public void clearAllHeroes() {
-        String sql = "DELETE * FROM heroes";
+        String sql = "DELETE FROM heroes";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .executeUpdate();

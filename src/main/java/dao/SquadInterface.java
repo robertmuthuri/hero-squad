@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SquadInterface {
     //LIST
-    List<Squad> getAll();
+//    List<Squad> getAll();
 
     //CREATE
     void add(Squad squad);

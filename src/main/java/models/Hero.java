@@ -41,6 +41,8 @@ public class Hero {
 
     public String getWeakness() { return weakness; }
 
+    public int getSquadId() { return squadId; }
+
     //Setters
     public void setWeakness(String weakness) {
         this.weakness = weakness;
@@ -60,6 +62,8 @@ public class Hero {
 
     public void setName(String name) { this.name = name; }
 
+    public void setSquadId(int squadId) { this.squadId = squadId; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +71,7 @@ public class Hero {
         Hero hero = (Hero) o;
         return getId() == hero.getId() &&
                 getAge() == hero.getAge() &&
+                getSquadId() == hero.getSquadId() &&
                 Objects.equals(getName(), hero.getName()) &&
                 Objects.equals(getPower(), hero.getPower()) &&
                 Objects.equals(getWeakness(), hero.getWeakness());
@@ -74,6 +79,6 @@ public class Hero {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getId(), getAge(), getPower(), getWeakness());
+        return Objects.hash(getName(), getId(), getAge(), getPower(), getWeakness(), getSquadId());
     }
 }

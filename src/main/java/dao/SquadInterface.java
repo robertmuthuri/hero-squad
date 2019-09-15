@@ -15,7 +15,7 @@ public interface SquadInterface {
     Squad findById(int id);
 
     //UPDATE
-//    void update(int id, String name);
+    void update(int id, String name);
 
     //DELETE
 //    void deleteById(int id);

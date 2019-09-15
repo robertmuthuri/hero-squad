@@ -6,6 +6,7 @@ import org.sql2o.*;
 import static org.junit.Assert.*;
 
 public class Sql2oSquadDaoTest {
+
     private Sql2oSquadDao squadDao;
     private Connection conn; 
     
@@ -19,6 +20,9 @@ public class Sql2oSquadDaoTest {
 
     @After
     public void tearDown() throws Exception { conn.close(); }
+
+    //helper method
+    public Squad setUpNewSquad() { return new Squad("Avengers"); }
 
     // list all test
     @Test
@@ -48,7 +52,6 @@ public class Sql2oSquadDaoTest {
         assertEquals(0, squadDao.getAll().size());
     }
     // update test
-
     @Test
     public void updateChangesSquadName() throws Exception {
         Squad squad = setUpNewSquad();
@@ -57,8 +60,5 @@ public class Sql2oSquadDaoTest {
         Squad updatedSquad = squadDao.findById(squad.getId());
         assertNotEquals(squad.getName(), updatedSquad.getName());
     }
-
-    //helper method
-    public Squad setUpNewSquad() { return new Squad("Avengers"); }
 
 }

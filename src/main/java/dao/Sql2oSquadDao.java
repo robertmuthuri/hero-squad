@@ -10,6 +10,7 @@ public class Sql2oSquadDao implements  SquadInterface {
     private final Sql2o sql2o;
 
     public Sql2oSquadDao(Sql2o sql2o) { this.sql2o = sql2o; }
+
     //List all items
     @Override
     public List<Squad> getAll() {
@@ -39,4 +40,17 @@ public class Sql2oSquadDao implements  SquadInterface {
                     .executeAndFetchFirst(Squad.class);
         }
     }
+    // Update method
+    @Override
+    public void update(int id, String newName) {
+        String sql = "UPDATE squads SET name = :name WHERE id = :id";
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
+
 }

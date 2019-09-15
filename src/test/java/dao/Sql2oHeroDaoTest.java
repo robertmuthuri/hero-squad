@@ -36,6 +36,8 @@ public class Sql2oHeroDaoTest {
         Hero foundHero = heroDao.findById(hero.getId());
         assertEquals(hero, foundHero);
     }
+
+
     @Test
     public void addedHeroesAreReturnedFromGetAll() throws Exception {
         Hero hero = setUpNewHero();
@@ -49,11 +51,13 @@ public class Sql2oHeroDaoTest {
     // update test
     @Test
     public void updateChangesHeroName() throws Exception {
+        String initialName = "Tony Stark";
         Hero hero = setUpNewHero();
         heroDao.add(hero);
+
         heroDao.update(hero.getId(),"Chris Evans");
         Hero updatedHero = heroDao.findById(hero.getId()); //why do I need to refind this?
-        assertNotEquals(hero.getName(), updatedHero.getName());
+        assertNotEquals(initialName, updatedHero.getName());
     }
     // delete test
     @Test

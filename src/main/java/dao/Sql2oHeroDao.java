@@ -14,7 +14,7 @@ public class Sql2oHeroDao implements HeroDao {
 
     @Override
     public void add(Hero hero) {
-        String sql = "INSERT INTO heroes (name, age, power, weakness) VALUES (:name, :age, :power, :weakness)"; // raw sql
+        String sql = "INSERT INTO heroes (name, age, power, weakness, squadId) VALUES (:name, :age, :power, :weakness, :squadId)"; // raw sql
         try(Connection con = sql2o.open()) { //tries to open a connection
             int id = (int) con.createQuery(sql, true) //make a new variable
             .bind(hero) // map my argument onto the query so we can use information from it - means the object fields are mapped onto the parameters outlined in the SQL statement.
@@ -48,6 +48,7 @@ public class Sql2oHeroDao implements HeroDao {
         String sql = "UPDATE heroes SET name = :name WHERE id = :id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
+                    .addParameter("name", newName)
                     .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {

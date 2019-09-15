@@ -52,5 +52,6 @@ public class Sql2oSquadDao implements  SquadInterface {
             System.out.println(ex);
         }
     }
+    // Delete method
 
 }

@@ -60,5 +60,12 @@ public class Sql2oSquadDaoTest {
         Squad updatedSquad = squadDao.findById(squad.getId());
         assertNotEquals(squad.getName(), updatedSquad.getName());
     }
-
+    // Delete test
+    @Test
+    public void deleteByIdDeletesTheCorrectSquad() throws Exception {
+        Squad squad = setUpNewSquad();
+        squadDao.add(squad);
+        squadDao.deleteById(squad.getId());
+        assertEquals(0, squadDao.getAll().size());
+    }
 }

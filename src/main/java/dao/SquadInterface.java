@@ -18,6 +18,6 @@ public interface SquadInterface {
     void update(int id, String name);
 
     //DELETE
-//    void deleteById(int id);
+    void deleteById(int id);
 //    void deleteAllSquads();
 }

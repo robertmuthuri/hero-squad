@@ -10,12 +10,15 @@ public class Hero {
     private String power;
     private String weakness;
 
-    private static ArrayList<Hero> instances = new ArrayList<>();
+    private int squadId;
 
-    public Hero (String name) {
+//    private static ArrayList<Hero> instances = new ArrayList<>();
+
+    public Hero (String name, int squadId) {
         this.name = name;
 //        instances.add(this);
 //        this.id = instances.size();
+        this.squadId = squadId;
     }
 //    public static ArrayList<Hero> getAll() { return instances; }
 

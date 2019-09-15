@@ -62,7 +62,7 @@ public class Sql2oHeroDaoTest {
         Hero hero = setUpNewHero();
         heroDao.add(hero);
 
-        heroDao.update(hero.getId(),"Chris Evans");
+        heroDao.update(hero.getId(),"Chris Evans", 1);
         Hero updatedHero = heroDao.findById(hero.getId()); //why do I need to refind this?
         assertNotEquals(initialName, updatedHero.getName());
     }

@@ -12,7 +12,7 @@ public interface SquadInterface {
     void add(Squad squad);
 
     //READ
-//    Squad findById(int id);
+    Squad findById(int id);
 
     //UPDATE
 //    void update(int id, String name);

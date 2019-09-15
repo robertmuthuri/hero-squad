@@ -37,4 +37,13 @@ public class Sql2oSquadDaoTest {
         squadDao.add(squad);
         assertNotEquals(originalSquadId, squad.getId());
     }
+    //read test
+
+    @Test
+    public void existingSquadCanBeFoundById() throws Exception {
+        Squad squad = setUpNewSquad();
+        squadDao.add(squad);
+        Squad foundSquad = squadDao.findById(squad.getId());
+        assertEquals(squad, foundSquad);
+    }
 }

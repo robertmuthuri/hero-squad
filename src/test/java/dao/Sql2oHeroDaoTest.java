@@ -30,7 +30,7 @@ public class Sql2oHeroDaoTest {
         assertNotEquals(originalHeroId, hero.getId());
     }
     @Test
-    public void existingHerosCanBeFoundById() throws Exception {
+    public void existingHeroesCanBeFoundById() throws Exception {
         Hero hero = setUpNewHero();
         heroDao.add(hero);
         Hero foundHero = heroDao.findById(hero.getId());

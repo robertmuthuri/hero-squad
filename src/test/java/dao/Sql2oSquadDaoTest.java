@@ -68,4 +68,15 @@ public class Sql2oSquadDaoTest {
         squadDao.deleteById(squad.getId());
         assertEquals(0, squadDao.getAll().size());
     }
+    // Deletes all test
+    @Test
+    public void deleteAllSquadsDeletesAll() throws Exception {
+        Squad squad = setUpNewSquad();
+        Squad otherSquad = new Squad("Justice League");
+        squadDao.add(squad);
+        squadDao.add(otherSquad);
+        int daoSize = squadDao.getAll().size();
+        squadDao.deleteAllSquads();
+        assertTrue(daoSize > 0 && daoSize > squadDao.getAll().size());
+    }
 }

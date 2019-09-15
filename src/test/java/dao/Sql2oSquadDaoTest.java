@@ -20,8 +20,6 @@ public class Sql2oSquadDaoTest {
     @After
     public void tearDown() throws Exception { conn.close(); }
 
-    //helper method
-    public Squad setUpNewSquad() { return new Squad("Avengers"); }
     // list all test
     @Test
     public void addedSquadsAreReturnedFromGetAll() throws Exception {
@@ -37,7 +35,7 @@ public class Sql2oSquadDaoTest {
         squadDao.add(squad);
         assertNotEquals(originalSquadId, squad.getId());
     }
-    //read test
+    //read tests
     @Test
     public void existingSquadCanBeFoundById() throws Exception {
         Squad squad = setUpNewSquad();
@@ -45,4 +43,22 @@ public class Sql2oSquadDaoTest {
         Squad foundSquad = squadDao.findById(squad.getId());
         assertEquals(squad, foundSquad);
     }
+    @Test
+    public void noSquadsReturnsEmptyList() throws Exception {
+        assertEquals(0, squadDao.getAll().size());
+    }
+    // update test
+
+    @Test
+    public void updateChangesSquadName() throws Exception {
+        Squad squad = setUpNewSquad();
+        squadDao.add(squad);
+        squadDao.update(squad.getId(), "Justice League");
+        Squad updatedSquad = squadDao.findById(squad.getId());
+        assertNotEquals(squad.getName(), updatedSquad.getName());
+    }
+
+    //helper method
+    public Squad setUpNewSquad() { return new Squad("Avengers"); }
+
 }

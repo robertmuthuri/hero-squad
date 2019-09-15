@@ -25,7 +25,7 @@ public class Sql2oHeroDao implements HeroDao {
             System.out.println(ex); // oops we have an error!
         }
     }
-
+    // List all method
     @Override
     public List<Hero> getAll() {
         try (Connection con = sql2o.open()) {
@@ -33,6 +33,7 @@ public class Sql2oHeroDao implements HeroDao {
             .executeAndFetch(Hero.class); // fetch a list
         }
     }
+    // Read method
     @Override
     public Hero findById(int id) {
         try (Connection con = sql2o.open()) {
@@ -53,7 +54,7 @@ public class Sql2oHeroDao implements HeroDao {
             System.out.println(ex);
         }
     }
-    //delete method
+    //delete single method
     @Override
     public void deleteById(int id) {
         String sql = "DELETE FROM heroes WHERE id = :id";
@@ -65,6 +66,7 @@ public class Sql2oHeroDao implements HeroDao {
             System.out.println(ex);
         }
     }
+    // delete all method
     @Override
     public void clearAllHeroes() {
         String sql = "DELETE FROM heroes";

@@ -6,18 +6,18 @@ import java.util.List;
 
 public interface SquadInterface {
     //LIST
-//    List<Squad> getAll();
+    List<Squad> getAll();
 
     //CREATE
     void add(Squad squad);
 
     //READ
-    Squad findById(int id);
+//    Squad findById(int id);
 
     //UPDATE
-    void update(int id, String name);
+//    void update(int id, String name);
 
     //DELETE
-    void deleteById(int id);
-    void deleteAllSquads();
+//    void deleteById(int id);
+//    void deleteAllSquads();
 }

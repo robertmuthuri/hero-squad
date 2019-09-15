@@ -37,7 +37,7 @@ public class Sql2oHeroDaoTest {
         assertEquals(hero, foundHero);
     }
     @Test
-    public void addedHeroesAreReturnedFromgetAll() throws Exception {
+    public void addedHeroesAreReturnedFromGetAll() throws Exception {
         Hero hero = setUpNewHero();
         heroDao.add(hero);
         assertEquals(1, heroDao.getAll().size());
@@ -63,7 +63,7 @@ public class Sql2oHeroDaoTest {
         heroDao.deleteById(hero.getId());
         assertEquals(0, heroDao.getAll().size());
     }
-    //delete test
+    //delete all test
     @Test
     public void deleteAllDeletesAll() throws Exception {
         Hero hero = setUpNewHero();

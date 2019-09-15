@@ -22,7 +22,14 @@ public class Sql2oSquadDaoTest {
 
     //helper method
     public Squad setUpNewSquad() { return new Squad("Avengers"); }
-
+    // list all test
+    @Test
+    public void addedSquadsAreReturnedFromGetAll() throws Exception {
+        Squad squad = setUpNewSquad();
+        squadDao.add(squad);
+        assertEquals(1, squadDao.getAll().size());
+    }
+    // add test
     @Test
     public void addingSquadSetsId() throws Exception {
         Squad squad = setUpNewSquad();

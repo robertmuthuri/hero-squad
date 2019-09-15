@@ -17,17 +17,17 @@ public class HeroTest {
 //        Hero.clearAllHeroes(); //Clears all heros before each test.
 //    }
     public Hero setupNewHero(){
-        return new Hero("Tony Stark");
+        return new Hero("Tony Stark", 1);
     }
 
     @Test
     public void NewHeroObjectGetsCorrectlyCreated_true() throws Exception {
-        Hero hero = new Hero("Tony Stark");
+        Hero hero = setupNewHero();
         assertTrue(hero instanceof Hero);
     }
     @Test
     public void HeroInstantiatesWithName_true() throws Exception {
-        Hero hero = new Hero("Tony Stark");
+        Hero hero = setupNewHero();
         assertEquals("Tony Stark", hero.getName());
     }
 //    @Test

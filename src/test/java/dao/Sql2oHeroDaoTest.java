@@ -67,7 +67,7 @@ public class Sql2oHeroDaoTest {
     @Test
     public void deleteAllDeletesAll() throws Exception {
         Hero hero = setUpNewHero();
-        Hero otherHero = new Hero("Torney Starkey");
+        Hero otherHero = new Hero("Torney Starkey", 1);
         heroDao.add(hero);
         heroDao.add(otherHero);
         int daoSize = heroDao.getAll().size();
@@ -75,5 +75,5 @@ public class Sql2oHeroDaoTest {
         assertTrue(daoSize > 0 && daoSize > heroDao.getAll().size());
     }
     //helper methods
-    public Hero setUpNewHero() { return new Hero("Tony Stark"); }
+    public Hero setUpNewHero() { return new Hero("Tony Stark", 1); }
 }

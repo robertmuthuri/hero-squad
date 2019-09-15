@@ -36,7 +36,14 @@ public class Sql2oHeroDaoTest {
         Hero foundHero = heroDao.findById(hero.getId());
         assertEquals(hero, foundHero);
     }
-
+    // Category id test
+    @Test
+    public void squadIdIsReturnedCorrectly() throws Exception {
+        Hero hero = setUpNewHero();
+        int originalId = hero.getSquadId();
+        heroDao.add(hero);
+        assertEquals(originalId, heroDao.findById(hero.getId()).getCategoryId());
+    }
 
     @Test
     public void addedHeroesAreReturnedFromGetAll() throws Exception {

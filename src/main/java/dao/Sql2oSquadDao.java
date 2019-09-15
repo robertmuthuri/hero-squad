@@ -52,6 +52,16 @@ public class Sql2oSquadDao implements  SquadInterface {
             System.out.println(ex);
         }
     }
-    // Delete method
-
+    // Delete single squad method
+    @Override
+    public void deleteById(int id) {
+        String sql = "DELETE FROM squads WHERE id = :id";
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
 }

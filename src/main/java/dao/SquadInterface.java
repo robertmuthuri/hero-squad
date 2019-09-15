@@ -19,5 +19,5 @@ public interface SquadInterface {
 
     //DELETE
     void deleteById(int id);
-//    void deleteAllSquads();
+    void deleteAllSquads();
 }

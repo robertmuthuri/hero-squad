@@ -1,5 +1,6 @@
 package dao;
 
+import models.Hero;
 import models.Squad;
 import org.junit.*;
 import org.sql2o.*;
@@ -8,7 +9,9 @@ import static org.junit.Assert.*;
 public class Sql2oSquadDaoTest {
 
     private Sql2oSquadDao squadDao;
-    private Connection conn; 
+    private Connection conn;
+
+    private Sql2oHeroDao heroDao;
     
     @Before
     public void setUp() throws Exception {
@@ -30,6 +33,21 @@ public class Sql2oSquadDaoTest {
         Squad squad = setUpNewSquad();
         squadDao.add(squad);
         assertEquals(1, squadDao.getAll().size());
+    }
+    // list all squad heroes
+    @Test
+    public void getAllHeroesBySquadReturnsHeroesCorrectly() throws Exception {
+        Squad squad = setUpNewSquad();
+        squadDao.add(squad);
+        int squadId = squad.getId();
+        Hero hero = new Hero("Tony Stark", squadId);
+        Hero secondHero = new Hero("Chris Evans", squadId);
+        Hero thirdHero = new Hero("Chris Hemsworth", squadId);
+        heroDao.add(hero);
+        heroDao.add(secondHero);
+        assertEquals(2, squadDao.getAllHeroesBySquad(squadId));
+        assertTrue(squadDao.getAllHeroesBySquad(squadId).contains(secondHero));
+        assertFalse(squadDao.getAllHeroesBySquad(squadId).contains(thirdHero));
     }
     // add test
     @Test

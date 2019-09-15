@@ -1,5 +1,6 @@
 package dao;
 
+import models.Hero;
 import models.Squad;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 public interface SquadInterface {
     //LIST
     List<Squad> getAll();
+    List<Hero> getAllHeroesBySquad(int squadId);
 
     //CREATE
     void add(Squad squad);

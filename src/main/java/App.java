@@ -19,77 +19,103 @@ public class App {
         Sql2o sql2o = new Sql2o(connectionString,"","");
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
 
-//        //get: show all heroes
-//        get("/", (request, response) -> {
-//            Map<String, Object> model = new HashMap<String, Object>();
-////            ArrayList<Hero> heroes = Hero.getAll();
-//            List<Hero> heroes = heroDao.getAll();
-//            model.put("heroes", heroes);
-//            return new ModelAndView(model, "index.hbs");
-//        }, new HandlebarsTemplateEngine());
-//
-//        //get: show new hero form
-//        get("/heroes/new", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            return new ModelAndView(model, "hero-form.hbs");
-//        }, new HandlebarsTemplateEngine());
-//
-//        //post: process a new hero form.
-//        post("/heroes/new", (request, response) -> { //URL to add a new hero on POST route
-//            Map<String, Object> model = new HashMap<String, Object>();
-//            String content = request.queryParams("hero");
-//            Hero newHero = new Hero(content);
-//            heroDao.add(newHero);
-//            return new ModelAndView(model, "success.hbs");
-//        }, new HandlebarsTemplateEngine());
-//
-//        //get: delete all heroes.
-//        get("/heroes/delete", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            heroDao.clearAllHeroes();
-//            return new ModelAndView(model, "success.hbs");
-//        }, new HandlebarsTemplateEngine());
-//
-//        //get: show an individual hero.
-//        get("/heroes/:id", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            int idOfHeroToFind = Integer.parseInt(req.params(":id")); //pull id - must match route segment
-////            Hero foundHero = Hero.findById(idOfHeroToFind); //use it to find hero
-//            Hero foundHero = heroDao.findById(idOfHeroToFind);
-//            model.put("hero", foundHero); //add it to model for template to display
-//            return new ModelAndView(model, "hero-detail.hbs"); //individual hero page.
-//        }, new HandlebarsTemplateEngine());
-//
-//        //get: show a form to update a hero.
-//        get("/heroes/:id/update", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
-////            Hero editHero = Hero.findById(idOfHeroToEdit);
-//            Hero editHero = heroDao.findById(idOfHeroToEdit);
-//            model.put("editHero", editHero);
-//            return new ModelAndView(model, "hero-form.hbs");
-//        }, new HandlebarsTemplateEngine());
-//
-//        //post: process a form to update a hero.
-//        post("/heroes/:id/update", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            String newName = req.queryParams("name");
-//            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
-////            Hero editHero = Hero.findById(idOfHeroToEdit);
-////            editHero.update(newName);
-//            heroDao.update(idOfHeroToEdit, newName);
-//            return new ModelAndView(model, "success.hbs");
-//        }, new HandlebarsTemplateEngine());
-//
-//
-//        //get: delete an individual hero.
+        //get: show all heroes
+        //get: show all heroes in all squads and show all squads
+        get("/", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+//            ArrayList<Hero> heroes = Hero.getAll();
+            List<Hero> heroes = heroDao.getAll();
+            model.put("heroes", heroes);
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //get: show a form to create a new squad
+        // /categories/new
+
+        //post: process a form to create a new squad
+        // /squads
+
+        //get: delete all squads and all heroes
+        // /squads/delete
+
+        //get: delete all heroes.
+        get("/heroes/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            heroDao.clearAllHeroes();
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //get a specific squad (and the heroes it contains)
+        // /squads/:squad_id
+
+        //get: show a form to update a squad
+        // squads/:id/edit
+
+        //get: delete a squad and the heroes it contains
+        // /squads/:id/delete
+
+        //get: delete an individual hero.
 //        get("/heroes/:id/delete", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            int idOfHeroToDelete = Integer.parseInt(req.params("id")); //pull id - must match route segment
-////            Hero deleteHero = Hero.findById(idOfHeroToDelete); //use it to find post
-////            deleteHero.deleteHero();
-//            heroDao.deleteById(idOfHeroToDelete);
-//            return new ModelAndView(model, "success.hbs");
-//        }, new HandlebarsTemplateEngine());
+        get("/squads/:squad_id/heroes/:hero_id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToDelete = Integer.parseInt(req.params("hero_id")); //pull id - must match route segment
+//            Hero deleteHero = Hero.findById(idOfHeroToDelete); //use it to find post
+//            deleteHero.deleteHero();
+            heroDao.deleteById(idOfHeroToDelete);
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //get: show new hero form
+        get("/heroes/new", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "hero-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //post: process a new hero form.
+        post("/heroes/new", (request, response) -> { //URL to add a new hero on POST route
+            Map<String, Object> model = new HashMap<String, Object>();
+            String content = request.queryParams("hero");
+//            Hero newHero = new Hero(content);
+            Hero newHero = new Hero(content, 1); //ignore the hardcoded squadId for now
+            heroDao.add(newHero);
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
+
+        //get: show an individual hero.
+        //get: show an individual hero that is nested within a squad.
+//        get("/heroes/:id", (req, res) -> {
+        get("/squads/:squad_id/heroes/:hero_id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToFind = Integer.parseInt(req.params(":hero_id")); //pull id - must match route segment
+//            Hero foundHero = Hero.findById(idOfHeroToFind); //use it to find hero
+            Hero foundHero = heroDao.findById(idOfHeroToFind);
+            model.put("hero", foundHero); //add it to model for template to display
+            return new ModelAndView(model, "hero-detail.hbs"); //individual hero page.
+        }, new HandlebarsTemplateEngine());
+
+        //get: show a form to update a hero.
+        get("/heroes/:id/update", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
+//            Hero editHero = Hero.findById(idOfHeroToEdit);
+            Hero editHero = heroDao.findById(idOfHeroToEdit);
+            model.put("editHero", editHero);
+            return new ModelAndView(model, "hero-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //post: process a form to update a hero.
+        post("/heroes/:id/update", (req, res) -> {  //URL to update hero on POST route
+            Map<String, Object> model = new HashMap<>();
+            String newName = req.queryParams("name");
+            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
+//            Hero editHero = Hero.findById(idOfHeroToEdit);
+//            editHero.update(newName);
+//            heroDao.update(idOfHeroToEdit, newName);
+            heroDao.update(idOfHeroToEdit, newName, 1); //ignore the hardcoded squadId for now
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
+
     }
 }

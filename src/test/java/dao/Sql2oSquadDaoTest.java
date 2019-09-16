@@ -10,7 +10,6 @@ public class Sql2oSquadDaoTest {
 
     private Sql2oSquadDao squadDao;
     private Connection conn;
-
     private Sql2oHeroDao heroDao;
     
     @Before
@@ -18,6 +17,7 @@ public class Sql2oSquadDaoTest {
         String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
         Sql2o sql2o = new Sql2o(connectionString, "", "");
         squadDao = new Sql2oSquadDao(sql2o);
+        heroDao = new Sql2oHeroDao(sql2o);
         conn = sql2o.open(); 
     }
 
@@ -45,7 +45,7 @@ public class Sql2oSquadDaoTest {
         Hero thirdHero = new Hero("Chris Hemsworth", squadId);
         heroDao.add(hero);
         heroDao.add(secondHero);
-        assertEquals(2, squadDao.getAllHeroesBySquad(squadId));
+        assertEquals(2, squadDao.getAllHeroesBySquad(squadId).size());
         assertTrue(squadDao.getAllHeroesBySquad(squadId).contains(secondHero));
         assertFalse(squadDao.getAllHeroesBySquad(squadId).contains(thirdHero));
     }
@@ -72,11 +72,12 @@ public class Sql2oSquadDaoTest {
     // update test
     @Test
     public void updateChangesSquadName() throws Exception {
+        String initialName = "Avengers";
         Squad squad = setUpNewSquad();
         squadDao.add(squad);
         squadDao.update(squad.getId(), "Justice League");
         Squad updatedSquad = squadDao.findById(squad.getId());
-        assertNotEquals(squad.getName(), updatedSquad.getName());
+        assertNotEquals(initialName, updatedSquad.getName());
     }
     // Delete test
     @Test

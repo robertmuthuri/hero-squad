@@ -42,7 +42,7 @@ public class Sql2oHeroDaoTest {
         Hero hero = setUpNewHero();
         int originalId = hero.getSquadId();
         heroDao.add(hero);
-        assertEquals(originalId, heroDao.findById(hero.getId()).getCategoryId());
+        assertEquals(originalId, heroDao.findById(hero.getId()).getSquadId());
     }
 
     @Test

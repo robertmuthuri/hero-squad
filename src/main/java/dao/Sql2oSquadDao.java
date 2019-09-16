@@ -1,5 +1,6 @@
 package dao;
 
+import models.Hero;
 import models.Squad;
 import org.sql2o.*;
 
@@ -11,12 +12,21 @@ public class Sql2oSquadDao implements  SquadInterface {
 
     public Sql2oSquadDao(Sql2o sql2o) { this.sql2o = sql2o; }
 
-    //List all items
+    //List all squads
     @Override
     public List<Squad> getAll() {
         try (Connection conn = sql2o.open()) {
         return conn.createQuery("SELECT * FROM squads WHERE id = :id")
                 .executeAndFetch(Squad.class);
+        }
+    }
+    // Lists all heroes in a squad
+    @Override
+    public List<Hero> getAllHeroesBySquad(int squadId) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("SELECT * FROM heroes WHERE squadId = :squadId")
+                    .addParameter("squadId", squadId)
+                    .executeAndFetch(Hero.class);
         }
     }
     //Add method
@@ -46,6 +56,7 @@ public class Sql2oSquadDao implements  SquadInterface {
         String sql = "UPDATE squads SET name = :name WHERE id = :id";
         try (Connection conn = sql2o.open()) {
             conn.createQuery(sql)
+                    .addParameter("name", newName)
                     .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {

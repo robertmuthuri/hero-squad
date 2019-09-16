@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import dao.Sql2oHeroDao;
+import dao.Sql2oSquadDao;
 import models.Hero;
+import models.Squad;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -18,12 +20,15 @@ public class App {
         String connectionString = "jdbc:h2:~/hero_squads.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
         Sql2o sql2o = new Sql2o(connectionString,"","");
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
+        Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
 
         //get: show all heroes
         //get: show all heroes in all squads and show all squads
         get("/", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
 //            ArrayList<Hero> heroes = Hero.getAll();
+            List<Squad> allSquads = squadDao.getAll();
+            model.put("squads", allSquads);
             List<Hero> heroes = heroDao.getAll();
             model.put("heroes", heroes);
             return new ModelAndView(model, "index.hbs");
@@ -115,7 +120,5 @@ public class App {
             heroDao.update(idOfHeroToEdit, newName, 1); //ignore the hardcoded squadId for now
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
-
-
     }
 }

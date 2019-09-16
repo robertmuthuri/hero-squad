@@ -59,7 +59,7 @@ public class Sql2oHeroDaoTest {
     @Test
     public void updateChangesHeroName() throws Exception {
         String initialName = "Tony Stark";
-        Hero hero = setUpNewHero();
+        Hero hero = new Hero(initialName, 1);
         heroDao.add(hero);
 
         heroDao.update(hero.getId(),"Chris Evans", 1);

@@ -16,7 +16,7 @@ public class Sql2oSquadDao implements  SquadInterface {
     @Override
     public List<Squad> getAll() {
         try (Connection conn = sql2o.open()) {
-        return conn.createQuery("SELECT * FROM squads WHERE id = :id")
+        return conn.createQuery("SELECT * FROM squads")
                 .executeAndFetch(Squad.class);
         }
     }

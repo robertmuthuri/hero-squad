@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import dao.Sql2oHeroDao;
 import dao.Sql2oSquadDao;
 import models.Hero;
@@ -35,10 +36,23 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: show a form to create a new squad
-        // /categories/new
+        get("/squads/new", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Squad> squads = squadDao.getAll(); //refresh list of links for navbar
+            model.put("squads", squads);
+            return new ModelAndView(model, "squad-form.hbs"); //new
+        }, new HandlebarsTemplateEngine());
 
         //post: process a form to create a new squad
-        // /squads
+        post("/squads", (req, res) -> { //new
+            Map<String, Object> model = new HashMap<>();
+            String name = req.queryParams("name");
+            Squad newSquad = new Squad(name);
+            squadDao.add(newSquad);
+            model.put("squads", squadDao.getAll());
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
 
         //get: delete all squads and all heroes
         // /squads/delete

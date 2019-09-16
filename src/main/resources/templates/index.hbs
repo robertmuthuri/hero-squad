@@ -3,15 +3,16 @@
     <h1>Hero List!</h1>
 
     {{#if heroes}} <!--if heroes exist, then -->
-    {{#each heroes }} <!--loop-->
-    <p>Current hero:</p>
-    <p>
-        {{ name }}
-        <a href="/heroes/{{id}}">Read more...</a>
-    </p> <!--show-->
-    {{/each}}
+        {{#each heroes }} <!--loop-->
+            <p>Current hero:</p>
+            <p>
+<!--                {{ name }}-->
+<!--                <a href="/heroes/{{id}}">Read more...</a>-->
+                <a href="/squads/{{squadId}}/heroes/{{id}}"> {{name}} </a>
+            </p> <!--show-->
+        {{/each}}
     {{else}} <!--no heroes!-->
-    <p>No heroes!</p>
+        <p>No heroes!</p>
     {{/if}}
 
 

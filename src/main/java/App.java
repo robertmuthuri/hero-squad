@@ -31,20 +31,9 @@ public class App {
             List<Squad> allSquads = squadDao.getAll();
             model.put("squads", allSquads);
             List<Hero> heroes = heroDao.getAll();
+            System.out.println(heroes);
             model.put("heroes", heroes);
             return new ModelAndView(model, "index.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        //get: show an individual squad and heroes it contains
-        get("/squads/:id", (request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
-            int idOfSquadToFind = Integer.parseInt(request.params("id")); //new
-            Squad foundSquad =  squadDao.findById(idOfSquadToFind);
-            model.put("squad", foundSquad);
-            List<Hero> allHeroesBySquad = squadDao.getAllHeroesBySquad(idOfSquadToFind);
-            model.put("heroes", allHeroesBySquad);
-            model.put("squads", squadDao.getAll()); //refresh list of links for navbar
-            return new ModelAndView(model, "squad-detail.hbs"); //new
         }, new HandlebarsTemplateEngine());
 
         //get: show a form to create a new squad
@@ -56,7 +45,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //post: process a form to create a new squad
-        post("/squads", (req, res) -> { //new
+        post("/squads/new", (req, res) -> { //new
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
             Squad newSquad = new Squad(name);
@@ -76,25 +65,51 @@ public class App {
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
-        //get a specific squad (and the heroes it contains)
-         get("/squads/:id", (req, res) -> {
-             Map<String, Object> model = new HashMap<>();
-             int idOfSquadToFind = Integer.parseInt(req.params("id")); //new
-             Squad foundSquad = squadDao.findById(idOfSquadToFind);
-             model.put("squad", foundSquad);
-             List<Hero> allHeroesBySquad = squadDao.getAllHeroesBySquad(idOfSquadToFind);
-             model.put("heroes", allHeroesBySquad);
-             model.put("squads", squadDao.getAll()); //refresh list of links for navbar
-             return new ModelAndView(model, "squad-detail.hbs");
-         }, new HandlebarsTemplateEngine());
+        //get: show an individual squad and heroes it contains
+        get("/squads/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            int idOfSquadToFind = Integer.parseInt(request.params("id"));
+            Squad foundSquad =  squadDao.findById(idOfSquadToFind);
+            model.put("squad", foundSquad);
+            List<Hero> allHeroesBySquad = squadDao.getAllHeroesBySquad(idOfSquadToFind);
+            model.put("heroes", allHeroesBySquad);
+            model.put("squads", squadDao.getAll()); //refresh list of links for nav-bar
+            return new ModelAndView(model, "squad-detail.hbs"); //new
+        }, new HandlebarsTemplateEngine());
 
         //get: show a form to update a squad
-        // squads/:id/edit
+        get("/squads/:id/update", (req, res) -> {
+            Map<String, Object> model = new HashMap<String,Object>();
+            model.put("updateSquad",true);
+            Squad squad = squadDao.findById(Integer.parseInt(req.params("id")));
+            model.put("squad", squad);
+            model.put("squads", squadDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "squad-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //post: process squad update
+        post("/squads/:id", (req, res) -> {
+           Map<String, Object> model = new HashMap<String, Object>();
+           int idOfSquadToUpdate = Integer.parseInt(req.params("id"));
+           String newName = req.queryParams("newSquadName");
+           squadDao.update(idOfSquadToUpdate, newName);
+           res.redirect("/");
+           return null
+        }, new HandlebarsTemplateEngine());
 
         //get: delete a squad and the heroes it contains
         // /squads/:id/delete
 
-        //get: delete an individual hero.
+        // delete an individual hero
+        get("/heroes/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfHeroToDelete = Integer.parseInt(req.params("id"));
+            heroDao.deleteById(idOfHeroToDelete);
+            model.put("heroes",heroDao.getAll());
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //get: delete an individual hero - in a squad.
 //        get("/heroes/:id/delete", (req, res) -> {
         get("/squads/:squad_id/heroes/:hero_id/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -108,17 +123,25 @@ public class App {
         //get: show new hero form
         get("/heroes/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            List<Squad> squads = squadDao.getAll(); //refresh list of links for navbar
+            model.put("squads", squads);
             return new ModelAndView(model, "hero-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process a new hero form.
         post("/heroes/new", (request, response) -> { //URL to add a new hero on POST route
             Map<String, Object> model = new HashMap<String, Object>();
+            List<Squad> allSquads = squadDao.getAll(); //new
+            model.put("squads", allSquads); // new
             String content = request.queryParams("hero");
+            int squadId = Integer.parseInt(request.queryParams("squadId"));
 //            Hero newHero = new Hero(content);
-            Hero newHero = new Hero(content, 1); //ignore the hardcoded squadId for now
+//            Hero newHero = new Hero(content, 1); //ignore the hardcoded squadId for now
+            Hero newHero = new Hero(content, squadId); //ignore the hardcoded squadId for now
             heroDao.add(newHero);
-            return new ModelAndView(model, "success.hbs");
+            response.redirect("/");
+            return null;
+//            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
 

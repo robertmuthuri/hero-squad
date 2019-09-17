@@ -98,7 +98,21 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: delete a squad and the heroes it contains
-        // /squads/:id/delete
+        get("/squads/delete", (req, res) -> {
+          Map<String, Object> model = new HashMap<>();
+          squadDao.deleteAllSquads();
+          heroDao.clearAllHeroes();
+          res.redirect("/");
+          return null;
+        }, new HandlebarsTemplateEngine());
+
+        //get: delete all heroes
+        get("/heroes/delete", (req, res) -> {
+          Map<String, Object> model = new HashMap<>();
+          heroDao.clearAllHeroes();
+          res.redirect("/");
+          return null;
+        }, new HandlebarsTemplateEngine());
 
         // delete an individual hero
         get("/heroes/:id/delete", (req, res) -> {
@@ -160,23 +174,24 @@ public class App {
         //get: show a form to update a hero.
         get("/heroes/:id/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
-//            Hero editHero = Hero.findById(idOfHeroToEdit);
-            Hero editHero = heroDao.findById(idOfHeroToEdit);
-            model.put("editHero", editHero);
+            List<Squad> allSquads = squadDao.getAll();
+            model.put("squads",allSquads);
+            int idOfHeroToUpdate = Integer.parseInt(req.params("id"));
+            Hero hero = heroDao.findById(idOfHeroToUpdate);
+            model.put("hero", hero);
+            model.put("updateHero", true);
             return new ModelAndView(model, "hero-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process a form to update a hero.
-        post("/heroes/:id/update", (req, res) -> {  //URL to update hero on POST route
+        post("/heroes/:id", (req, res) -> {  //URL to update hero on POST route
             Map<String, Object> model = new HashMap<>();
+            int idOfHeroToUpdate = Integer.parseInt(req.params("id"));
             String newName = req.queryParams("name");
-            int idOfHeroToEdit = Integer.parseInt(req.params("id"));
-//            Hero editHero = Hero.findById(idOfHeroToEdit);
-//            editHero.update(newName);
-//            heroDao.update(idOfHeroToEdit, newName);
-            heroDao.update(idOfHeroToEdit, newName, 1); //ignore the hardcoded squadId for now
-            return new ModelAndView(model, "success.hbs");
+            int newSquadId = Integer.parseInt(req.params("squadId"));
+            heroDao.update(idOfHeroToEdit, newName, newSquadId);
+            res.redirect("/");
+            return null;
         }, new HandlebarsTemplateEngine());
     }
 }

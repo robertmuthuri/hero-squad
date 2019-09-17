@@ -46,7 +46,7 @@ public class App {
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
-            int port = dbUri.getPort();
+//            int port2 = dbUri.getPort();
             String host = dbUri.getHost();
             String path = dbUri.getPath();
             String username = dbUri.getUserInfo().split(":")[0];

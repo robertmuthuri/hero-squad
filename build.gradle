@@ -5,8 +5,9 @@ plugins {
 
 group 'com.moringa.hero-squad'
 version '1.0-SNAPSHOT'
+applicationName = "hero-squads"
 mainClassName = 'App'
-
+task stage(dependsOn: ['clean', 'installDist'])
 sourceCompatibility = 1.8
 
 repositories {
@@ -20,5 +21,6 @@ dependencies {
     compile 'org.slf4j:slf4j-simple:1.7.21' //to ensure easy to read logging.
     //db dependencies
     compile 'org.sql2o:sql2o:1.5.4'
+    compile 'org.postgresql:postgresql:9.4-1201-jdbc41'
     compile group: 'com.h2database', name: 'h2', version: '1.4.191'
 }

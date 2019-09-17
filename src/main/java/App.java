@@ -1,3 +1,5 @@
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +17,45 @@ import static spark.Spark.*;
 
 public class App {
     public static void main(String[] args) {
+        //check port
+        ProcessBuilder process = new ProcessBuilder();
+        Integer port;
+        if (process.environment().get("PORT") != null) {
+            port = Integer.parseInt(process.environment().get("PORT"));
+        } else {
+            port = 4567;
+        }
+        port(port);
+
         staticFileLocation("/public");
+        Sql2o sql2o;
+        Sql2oHeroDao heroDao;
+        Sql2oSquadDao squadDao;
+
 
         // setup a production database and frontend DAO Sql2oTaskDao
-        String connectionString = "jdbc:h2:~/hero_squads.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
-        Sql2o sql2o = new Sql2o(connectionString,"","");
-        Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
-        Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
+//        String connectionString = "jdbc:h2:~/hero_squads.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
+        if (System.getenv("DATABASE_URL") == null) {
+            String connectionString = "jdbc:postgresql://localhost:5432/hero_squads";
+            sql2o = new Sql2o(connectionString, null, null);
+
+        } else {
+            URI dbUri = null;
+            try {
+                dbUri = new URI(System.getenv("DATABASE_URL"));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            int port = dbUri.getPort();
+            String host = dbUri.getHost();
+            String path = dbUri.getPath();
+            String username = dbUri.getUserInfo().split(":")[0];
+            String password = dbUri.getUserInfo().split(":")[1];
+            sql2o = new Sql2o("jdbc:postgresql://" + host + ":" + port + path, username, password);
+        }
+
+        heroDao = new Sql2oHeroDao(sql2o);
+        squadDao = new Sql2oSquadDao(sql2o);
 
         //get: show all heroes
         //get: show all heroes in all squads and show all squads
@@ -54,9 +88,6 @@ public class App {
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
-
-        //get: delete all squads and all heroes
-        // /squads/delete
 
         //get: delete all heroes.
         get("/heroes/delete", (req, res) -> {
@@ -94,7 +125,7 @@ public class App {
            String newName = req.queryParams("newSquadName");
            squadDao.update(idOfSquadToUpdate, newName);
            res.redirect("/");
-           return null
+           return null;
         }, new HandlebarsTemplateEngine());
 
         //get: delete a squad and the heroes it contains
@@ -158,7 +189,6 @@ public class App {
 //            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
-
         //get: show an individual hero.
         //get: show an individual hero that is nested within a squad.
 //        get("/heroes/:id", (req, res) -> {
@@ -189,7 +219,7 @@ public class App {
             int idOfHeroToUpdate = Integer.parseInt(req.params("id"));
             String newName = req.queryParams("name");
             int newSquadId = Integer.parseInt(req.params("squadId"));
-            heroDao.update(idOfHeroToEdit, newName, newSquadId);
+            heroDao.update(idOfHeroToUpdate, newName, newSquadId);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());

@@ -35,6 +35,18 @@ public class App {
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //get: show an individual squad and heroes it contains
+        get("/squads/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            int idOfSquadToFind = Integer.parseInt(request.params("id")); //new
+            Squad foundSquad =  squadDao.findById(idOfSquadToFind);
+            model.put("squad", foundSquad);
+            List<Hero> allHeroesBySquad = squadDao.getAllHeroesBySquad(idOfSquadToFind);
+            model.put("heroes", allHeroesBySquad);
+            model.put("squads", squadDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "squad-detail.hbs"); //new
+        }, new HandlebarsTemplateEngine());
+
         //get: show a form to create a new squad
         get("/squads/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -65,7 +77,16 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get a specific squad (and the heroes it contains)
-        // /squads/:squad_id
+         get("/squads/:id", (req, res) -> {
+             Map<String, Object> model = new HashMap<>();
+             int idOfSquadToFind = Integer.parseInt(req.params("id")); //new
+             Squad foundSquad = squadDao.findById(idOfSquadToFind);
+             model.put("squad", foundSquad);
+             List<Hero> allHeroesBySquad = squadDao.getAllHeroesBySquad(idOfSquadToFind);
+             model.put("heroes", allHeroesBySquad);
+             model.put("squads", squadDao.getAll()); //refresh list of links for navbar
+             return new ModelAndView(model, "squad-detail.hbs");
+         }, new HandlebarsTemplateEngine());
 
         //get: show a form to update a squad
         // squads/:id/edit
@@ -106,9 +127,9 @@ public class App {
 //        get("/heroes/:id", (req, res) -> {
         get("/squads/:squad_id/heroes/:hero_id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfHeroToFind = Integer.parseInt(req.params(":hero_id")); //pull id - must match route segment
+            int idOfHeroToFind = Integer.parseInt(req.params("hero_id")); //pull id - must match route segment
 //            Hero foundHero = Hero.findById(idOfHeroToFind); //use it to find hero
-            Hero foundHero = heroDao.findById(idOfHeroToFind);
+            Hero foundHero = heroDao.findById(idOfHeroToFind); // use the id to find the hero
             model.put("hero", foundHero); //add it to model for template to display
             return new ModelAndView(model, "hero-detail.hbs"); //individual hero page.
         }, new HandlebarsTemplateEngine());

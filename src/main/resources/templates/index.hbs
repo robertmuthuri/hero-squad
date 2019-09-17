@@ -6,15 +6,14 @@
         {{#each heroes }} <!--loop-->
             <p>Current hero:</p>
             <p>
-<!--                {{ name }}-->
-<!--                <a href="/heroes/{{id}}">Read more...</a>-->
+
+
                 <a href="/squads/{{squadId}}/heroes/{{id}}"> {{name}} </a>
             </p> <!--show-->
         {{/each}}
     {{else}} <!--no heroes!-->
         <p>No heroes!</p>
     {{/if}}
-
 
 {{/partial}}
 

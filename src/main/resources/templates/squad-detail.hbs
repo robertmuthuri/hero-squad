@@ -2,11 +2,15 @@
     <h1>{{squad.name}}</h1>
     <p>Here are all the heroes listed in this squad:</p>
     <ul>
-        {{#each heroes}}
-            <li>
-                <p><a href="/squads/{{squad.id}}/heroes/{{id}}">{{name}}</a></p>
-            </li>
-        {{/each}}
+        {{#if heroes}}
+            {{#each heroes}}
+                <li>
+                    <p><a href="/squads/{{squad.id}}/heroes/{{id}}">{{name}}</a></p>
+                </li>
+            {{/each}}
+        {{else}}
+            <p>There are no heroes in this squad! </p>
+        {{/if}}
     </ul>
     <a href="/squads/{{squad.id}}/update">Update this squad</a><br>
     <a href="/squads/{{squad.id}}/delete">DELETE this squad</a>

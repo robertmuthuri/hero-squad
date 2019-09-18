@@ -5,9 +5,9 @@ plugins {
 
 group 'com.moringa.hero-squad'
 version '1.0-SNAPSHOT'
-applicationName = "heroSquads"
+applicationName = "hero-squad"
 mainClassName = 'App'
-task stage(dependsOn: ['clean', 'installDist'])
+task stage(dependsOn: ['clean', 'installApp'])
 sourceCompatibility = 1.8
 
 repositories {

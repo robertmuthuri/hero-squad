@@ -1,1 +1,1 @@
-bash: ./build/install/heroSquads/bin/heroSquads
+bash: ./build/install/hero-squad/bin/hero-squad

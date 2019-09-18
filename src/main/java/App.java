@@ -46,12 +46,12 @@ public class App {
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
-            int port2 = dbUri.getPort();
+            port = dbUri.getPort();
             String host = dbUri.getHost();
             String path = dbUri.getPath();
             String username = dbUri.getUserInfo().split(":")[0];
             String password = dbUri.getUserInfo().split(":")[1];
-            sql2o = new Sql2o("jdbc:postgresql://" + host + ":" + port2 + path, username, password);
+            sql2o = new Sql2o("jdbc:postgresql://" + host + ":" + port + path, username, password);
         }
 
         heroDao = new Sql2oHeroDao(sql2o);

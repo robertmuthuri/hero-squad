@@ -1,16 +1,38 @@
 {{#partial "content"}}
 
-    <h1>Hero List!</h1>
+    <!--Table-->
+    {{#if heroes}}
+    <table class="table table-striped w-auto">
 
-    {{#if heroes}} <!--if heroes exist, then -->
-        {{#each heroes }} <!--loop-->
-            <p>Current hero:</p>
-            <p>
-                <a href="/squads/{{squadId}}/heroes/{{id}}"> {{name}} </a>
-            </p> <!--show-->
+        <!--Table head-->
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Details</th>
+
+        </tr>
+        </thead>
+        <!--Table head-->
+
+        <!--Table body-->
+        <tbody>
+        {{#each heroes}}
+            <tr class="table-info">
+                <th scope="row">{{id}}</th>
+                <td>{{name}}</td>
+                <td>View Details</td>
+
+            </tr>
         {{/each}}
-    {{else}} <!--no heroes!-->
-        <p>No heroes!</p>
+
+        </tbody>
+        <!--Table body-->
+
+    </table>
+    <!--Table-->
+    {{else}}
+        <p>No heroes currently! </p>
     {{/if}}
 
 {{/partial}}

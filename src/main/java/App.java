@@ -178,11 +178,14 @@ public class App {
             Map<String, Object> model = new HashMap<String, Object>();
             List<Squad> allSquads = squadDao.getAll(); //new
             model.put("squads", allSquads); // new
-            String content = request.queryParams("hero");
+            String name = request.queryParams("name");
+            int age = Integer.parseInt(request.queryParams("age"));
+            String power = request.queryParams("power");
+            String weakness = request.queryParams("weakness");
             int squadId = Integer.parseInt(request.queryParams("squadId"));
 //            Hero newHero = new Hero(content);
 //            Hero newHero = new Hero(content, 1); //ignore the hardcoded squadId for now
-            Hero newHero = new Hero(content, squadId); //ignore the hardcoded squadId for now
+            Hero newHero = new Hero(name,age, power, weakness, squadId); //ignore the hardcoded squadId for now
             heroDao.add(newHero);
             response.redirect("/");
             return null;
@@ -208,18 +211,22 @@ public class App {
             model.put("squads",allSquads);
             int idOfHeroToUpdate = Integer.parseInt(req.params("id"));
             Hero hero = heroDao.findById(idOfHeroToUpdate);
-            model.put("hero", hero);
-            model.put("updateHero", true);
+            model.put("updateHero", hero);
+            model.put("editHero", true);
+            model.put("squad", squadDao.findById(hero.getSquadId()));
             return new ModelAndView(model, "hero-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process a form to update a hero.
-        post("/heroes/:id", (req, res) -> {  //URL to update hero on POST route
+        post("/heroes/:id/update", (req, res) -> {  //URL to update hero on POST route
             Map<String, Object> model = new HashMap<>();
             int idOfHeroToUpdate = Integer.parseInt(req.params("id"));
             String newName = req.queryParams("name");
-            int newSquadId = Integer.parseInt(req.params("squadId"));
-            heroDao.update(idOfHeroToUpdate, newName, newSquadId);
+            int newAge = Integer.parseInt(req.queryParams("age"));
+            String newPower = req.queryParams("power");
+            String newWeakness = req.queryParams("weakness");
+            int newSquadId = Integer.parseInt(req.queryParams("squadId"));
+            heroDao.update(idOfHeroToUpdate, newName,newAge, newPower, newWeakness, newSquadId);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());

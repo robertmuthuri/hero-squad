@@ -2,12 +2,53 @@
 <html>
 <head>
     <title>{{#block "title"}}Blog{{/block}}</title>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+<!--    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>-->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+
 </head>
 <body>
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+            aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" role="presentation"> <a class="nav-link" href="/">Home <span class="sr-only">(current)</span> </a> </li>
+            <li class="nav-item" role="presentation"> <a class="nav-link" href="/heroes/new">Add a New Hero</a>  </li>
+
+            <li class="nav-item dropdown" role="presentation">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false"> Squad Menu
+                </a>
+                <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+<!--                    <a class="dropdown-item" href="#">Action</a>-->
+<!--                    <a class="dropdown-item" href="#">Another action</a>-->
+<!--                    <a class="dropdown-item" href="#">Something else here</a>-->
+                    {{#if squads}}
+                        {{#each squads}}
+                            <a class="dropdown-item" href="/squads/{{id}}">{{name}}</a>
+                        {{/each}}
+                        <a class="dropdown-item" href="/squads/new">Add a Squad</a>
+
+                    {{else}}
+                        <a class="dropdown-item" href="/squads/new">Add a Squad</a>
+                    {{/if}}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--/.Navbar -->
 <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="/">Home</a></li>
-    <li role="presentation"><a href="/heroes/new">Add a New Hero</a></li>
 
     <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -29,9 +70,10 @@
 <div class="container">
     <!--begin main template-->
     <div class="page-header">
-        <img src="/images/avengers.png" width="70%" alt="Avengers Ensemble">
+<!--        <img src="/images/avengers.png" width="70%" alt="Avengers Ensemble">-->
         <h1>Welcome to my Hero-Squad!</h1>
-        <h1><small>Let's assemble some hero - squads.</small></h1>
+        <h2>Let's assemble some hero - squads.</h2>
+        <hr>
     </div>
 
     <div class="col-md-12">
@@ -42,17 +84,15 @@
 </div>
 <!--end main template-->
 {{#block "footer"}}
-<!--    <footer class="footer">-->
-<!--        <div class="container">-->
-<!--            <hr>-->
-<!--            <p class="text-muted">-->
-<!--                <a href="/squads/delete">delete all squads & heroes</a><br>-->
-<!--                <a href="/heroes/delete">DELETE ALL HEROES</a>-->
-<!--            </p>-->
-<!--        </div>-->
-<!--    </footer>-->
     </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+<link rel="stylesheet" href="/js/scripts.js">
     </html>
 {{/block}}

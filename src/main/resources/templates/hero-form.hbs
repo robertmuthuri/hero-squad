@@ -1,41 +1,118 @@
 {{#partial "content"}}
 
-    {{#if updateHero}}
-        <h1>Edit this Hero!</h1>
-        <form action="/heroes/{{editHero.id}}/update" method="post">
-            <br>
-            <label for="name">Edit this hero's name</label>
-            <input id="name" name="name" type="text" value="{{editHero.name}}">
-            <br>
-            <label for="squadId">Update this hero's squad</label>
-            <select name="squadId" id="squadId">
-                {{#each squads}}
-                        <option value="{{id}}">{{name}}</option>
-                {{/each}}
-            </select>
-            <p>Don't see the right squad? <a href="/squads/new">Add a new one first.</a> </p>
-             <button type="submit" class="btn btn-default">Update!</button>
-        </form>
-    {{else}}
-        <p>Add a new Hero:</p>
+    {{#if editHero}}
+        <!--Form without header-->
+        <form action="/heroes/{{updateHero.id}}/update" method="POST">
+            <div class="card" >
+                {{#if squads}}
+                <div class="card-block">
+                    <!--Header-->
+                    <div class="form-header blue-gradient">
+                        <h3><i class="fa fa-user"></i> Edit this Hero:</h3>
+                    </div>
+                    <div class="md-form">
+                        <i class="fa"></i>
+                        <input type="text" id="name" name="name" value="{{updateHero.name}}" class="form-control">
+                        <label for="name" >Hero's Name</label>
+                    </div>
 
+                    <div class="md-form">
+                        <i class="fa"></i>
+                        <input type="number" id="age" name="age" value="{{updateHero.age}}" class="form-control">
+                        <label for="age">Hero's Age</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fa"></i>
+                        <input type="text" id="power" name="power" value="{{updateHero.power}}" class="form-control">
+                        <label for="age">Hero's Power</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fa"></i>
+                        <input type="text" id="weakness" name="weakness" value="{{updateHero.weakness}}" class="form-control">
+                        <label for="weakness">Hero's Weakness</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fa"> </i>
+                        <select class="mdb-select md-form md-outline colorful-select dropdown-primary" type="number" id="squadId" name="squadId">
+                            <option value="{{squad.id}}">{{squad.name}}</option>
+                            {{#each squads}}
+                                <option value="{{id}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                        <p>Don't see the right squad? <a href="/squads/new">Add a new one first.</a></p>
+                    </div>
+                {{else}}
+                    <h3> Sorry, you'll need to add a squad before you add a hero.
+                        <a href="/squads/new"> Add a new one here. </a>
+                    </h3>
+                {{/if}}
+            </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-deep-orange">Update!</button>
+                </div>
+            </div>
+        </form>
+
+    {{else}}
+        <!--Form without header-->
         <form action="/heroes/new" method="POST">
-            {{#if squads}}
-                <label for="hero">Hero Name</label>
-                <input id="hero" name="hero" type="text">
-                    <label for="squadId">Assign this hero to the following squad:</label>
-                    <select name="squadId" id="squadId">
-                        {{#each squads}}
-                            <option value="{{id}}">{{name}}</option>
-                        {{/each}}
-                    </select>
-                <p>Don't see the right squad? <a href="/squads/new">Add a new one first.</a></p>
-            {{else}}
-                <h3> Sorry, you'll need to add a squad before you add a hero.
-                    <a href="/squads/new"> Add a new one here. </a>
-                </h3>
-            {{/if}}
-            <button type="submit" class="btn btn-default"> Go! </button>
+            <div class="card" >
+                {{#if squads}}
+                    <div class="card-block">
+                        <!--Header-->
+                        <div class="form-header blue-gradient">
+                            <h3><i class="fa fa-user"></i> Add Hero:</h3>
+                        </div>
+                        <!--Body-->
+    <!--                    <br>-->
+                        <!--Body-->
+                        <div class="md-form">
+                            <i class="fa"></i>
+                            <input type="text" id="name" name="name" class="form-control">
+                            <label for="name" >Hero's Name</label>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa"></i>
+                            <input type="number" id="age" name="age" class="form-control">
+                            <label for="age">Hero's Age</label>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa"></i>
+                            <input type="text" id="power" name="power" class="form-control">
+                            <label for="age">Hero's Power</label>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa"></i>
+                            <input type="text" id="weakness" name="weakness" class="form-control">
+                            <label for="weakness">Hero's Weakness</label>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa"> </i>
+                            <select class="mdb-select md-form md-outline colorful-select dropdown-primary" type="number" id="squadId" name="squadId">
+                                <option value="" disabled selected>Choose your squad</option>
+                                {{#each squads}}
+                                    <option value="{{id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                            <p>Don't see the right squad? <a href="/squads/new">Add a new one first.</a></p>
+                        </div>
+                {{else}}
+                    <h3> Sorry, you'll need to add a squad before you add a hero.
+                        <a href="/squads/new"> Add a new one here. </a>
+                    </h3>
+                {{/if}}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-deep-orange">Add</button>
+                    </div>
+            </div>
         </form>
     {{/if}}
 {{/partial}}

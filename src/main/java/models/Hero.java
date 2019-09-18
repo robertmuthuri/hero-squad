@@ -14,20 +14,19 @@ public class Hero {
 
 //    private static ArrayList<Hero> instances = new ArrayList<>();
 
-    public Hero (String name, int squadId) {
+    public Hero (String name, int age, String power, String weakness, int squadId) {
         this.name = name;
 //        instances.add(this);
 //        this.id = instances.size();
+        this.age = age;
+        this.power = power;
+        this.weakness = weakness;
         this.squadId = squadId;
     }
 //    public static ArrayList<Hero> getAll() { return instances; }
-
 //    public static void clearAllHeroes() { instances.clear(); }
-
 //    public static Hero findById(int id){ return instances.get(id-1); }
-
 //    public void update(String name) { this.name = name; }
-
 //    public void deleteHero() { instances.remove(id-1); }
 
     //getters

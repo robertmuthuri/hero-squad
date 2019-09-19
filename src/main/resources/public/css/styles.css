@@ -25,5 +25,8 @@ label,
 .container {
     horiz-align: center;
     align-self: center;
-
+}
+button {
+    font-size: 30px;
+    align-content: center;
 }

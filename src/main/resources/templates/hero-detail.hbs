@@ -1,13 +1,47 @@
 {{#partial "content"}}
-
-    <h5>ID: {{ hero.id }} </h5>
-    <h5>Name: {{ hero.name }}</h5>
-    <h5>Squad Ensemble: {{squad.name}} </h5>
-
-    <a href="/heroes/{{hero.id}}/update">Edit this post</a>
-    <br>
-    <a href="/heroes/{{hero.id}}/delete">DELETE this hero's record. (no undo)</a>
-
+    <!--Table-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                    <table id="indexTable" class="table table-striped w-auto">
+                        <!--Table head-->
+                        <thead class="aqua-gradient">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Power</th>
+                            <th>Weakness</th>
+                            <th>Squad</th>
+                        </tr>
+                        </thead>
+                        <!--Table head-->
+                        <!--Table body-->
+                        <tbody>
+                            <tr class="table-info">
+                                <th scope="row">{{id}}</th>
+                                <td>{{hero.name}}</td>
+                                <td>{{hero.age}}</td>
+                                <td>{{hero.power}}</td>
+                                <td>{{hero.weakness}}</td>
+                                <td>{{squad.name}}</td>
+                            </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                    <!--Table-->
+                    <a href="/heroes/{{hero.id}}/update">
+                        <button class="btn peach-gradient btn-rounded-sm waves-effect">Edit this post</button>
+                    </a>
+                    <br>
+                    <a href="/heroes/{{hero.id}}/delete">
+                        <button class="btn peach-gradient btn-rounded-sm waves-effect">DELETE this hero's record! (No undo)</button>
+                    </a>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
 {{/partial}}
 
 {{> layout.hbs}}

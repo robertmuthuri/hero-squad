@@ -1,33 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
 {{#partial "content"}}
     <!--Table-->
-    {{#if heroes}}
-    <table class="table table-striped w-auto">
-        <!--Table head-->
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Details</th>
-        </tr>
-        </thead>
-        <!--Table head-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                {{#if heroes}}
+                    <table id="indexTable" class="table table-striped w-auto">
+                        <!--Table head-->
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Details</th>
+                        </tr>
+                        </thead>
+                        <!--Table head-->
 
-        <!--Table body-->
-        <tbody>
-            {{#each heroes}}
-                <tr class="table-info">
-                    <th scope="row">{{id}}</th>
-                    <td>{{name}}</td>
-                    <td>View Details</td>
-                </tr>
-            {{/each}}
-        </tbody>
-        <!--Table body-->
-    </table>
-    <!--Table-->
-    {{else}}
-        <p>No heroes currently! </p>
-    {{/if}}
+                        <!--Table body-->
+                        <tbody>
+                        {{#each heroes}}
+                            <tr class="table-info">
+                                <th scope="row">{{id}}</th>
+                                <td>{{name}}</td>
+                                <td>
+                                    <a href="/squads/{{squadId}}/heroes/{{id}}">
+                                        <button class="btn btn-outline-info btn-rounded-sm waves-effect">View Details</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                    <!--Table-->
+                {{else}}
+                    <p>No heroes currently! </p>
+                {{/if}}
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
 {{/partial}}
 
+</body>
 {{> layout.hbs}}

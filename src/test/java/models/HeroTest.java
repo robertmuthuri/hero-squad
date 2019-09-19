@@ -17,7 +17,7 @@ public class HeroTest {
 //        Hero.clearAllHeroes(); //Clears all heros before each test.
 //    }
     public Hero setupNewHero(){
-        return new Hero("Tony Stark", 1);
+        return new Hero("Tony Stark", 48, "Too awesome","Weak heart",1);
     }
 
     @Test

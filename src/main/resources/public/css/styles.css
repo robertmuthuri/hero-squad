@@ -21,3 +21,9 @@ label,
     color: antiquewhite;
     font-weight: 400;
 }
+
+.container {
+    horiz-align: center;
+    align-self: center;
+
+}

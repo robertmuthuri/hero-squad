@@ -59,10 +59,10 @@ public class Sql2oHeroDaoTest {
     @Test
     public void updateChangesHeroName() throws Exception {
         String initialName = "Tony Stark";
-        Hero hero = new Hero(initialName, 1);
+        Hero hero = new Hero(initialName, 48, "Too awesome", "Weak heart", 1);
         heroDao.add(hero);
 
-        heroDao.update(hero.getId(),"Chris Evans", 1);
+        heroDao.update(hero.getId(),"Chris Evans", 38, " agility, strength, speed, endurance", "Drunk",1);
         Hero updatedHero = heroDao.findById(hero.getId()); //why do I need to refind this?
         assertNotEquals(initialName, updatedHero.getName());
     }
@@ -78,7 +78,7 @@ public class Sql2oHeroDaoTest {
     @Test
     public void deleteAllDeletesAll() throws Exception {
         Hero hero = setUpNewHero();
-        Hero otherHero = new Hero("Torney Starkey", 1);
+        Hero otherHero = new Hero("Torney Starkey", 48, "Too awesome","Weak heart",1);
         heroDao.add(hero);
         heroDao.add(otherHero);
         int daoSize = heroDao.getAll().size();
@@ -86,5 +86,5 @@ public class Sql2oHeroDaoTest {
         assertTrue(daoSize > 0 && daoSize > heroDao.getAll().size());
     }
     //helper methods
-    public Hero setUpNewHero() { return new Hero("Tony Stark", 1); }
+    public Hero setUpNewHero() { return new Hero("Tony Stark", 48, "Too awesome","Weak heart",1); }
 }

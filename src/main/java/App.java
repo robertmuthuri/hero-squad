@@ -32,7 +32,6 @@ public class App {
         Sql2oHeroDao heroDao;
         Sql2oSquadDao squadDao;
 
-
         // setup a production database and frontend DAO Sql2oTaskDao
 //        String connectionString = "jdbc:h2:~/hero_squads.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
         if (System.getenv("DATABASE_URL") == null) {
@@ -197,10 +196,14 @@ public class App {
 //        get("/heroes/:id", (req, res) -> {
         get("/squads/:squad_id/heroes/:hero_id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            int idOfSquadToFind = Integer.parseInt(req.params("squad_id"));
             int idOfHeroToFind = Integer.parseInt(req.params("hero_id")); //pull id - must match route segment
 //            Hero foundHero = Hero.findById(idOfHeroToFind); //use it to find hero
             Hero foundHero = heroDao.findById(idOfHeroToFind); // use the id to find the hero
             model.put("hero", foundHero); //add it to model for template to display
+            model.put("squad",squadDao.findById(idOfSquadToFind));
+            model.put("squads", squadDao.getAll()); //refresh squads
+            model.put("heroes", heroDao.getAll()); //refresh heroes
             return new ModelAndView(model, "hero-detail.hbs"); //individual hero page.
         }, new HandlebarsTemplateEngine());
 

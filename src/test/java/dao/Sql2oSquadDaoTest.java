@@ -40,9 +40,9 @@ public class Sql2oSquadDaoTest {
         Squad squad = setUpNewSquad();
         squadDao.add(squad);
         int squadId = squad.getId();
-        Hero hero = new Hero("Tony Stark", squadId);
-        Hero secondHero = new Hero("Chris Evans", squadId);
-        Hero thirdHero = new Hero("Chris Hemsworth", squadId);
+        Hero hero = new Hero("Tony Stark",48, "Too awesome","Weak heart", squadId);
+        Hero secondHero = new Hero("Chris Evans",38, "Agility, strength, speed, endurance", "Drunk", squadId);
+        Hero thirdHero = new Hero("Chris Hemsworth", 36, "Enchanted Uru hammer - Mjolnir, Master of thunder and lightning", "Swings first, asks questions later", squadId);
         heroDao.add(hero);
         heroDao.add(secondHero);
         assertEquals(2, squadDao.getAllHeroesBySquad(squadId).size());

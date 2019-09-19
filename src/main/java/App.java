@@ -182,6 +182,8 @@ public class App {
             String power = request.queryParams("power");
             String weakness = request.queryParams("weakness");
             int squadId = Integer.parseInt(request.queryParams("squadId"));
+//            if (squadDao.findById(squadId).)
+
 //            Hero newHero = new Hero(content);
 //            Hero newHero = new Hero(content, 1); //ignore the hardcoded squadId for now
             Hero newHero = new Hero(name,age, power, weakness, squadId); //ignore the hardcoded squadId for now

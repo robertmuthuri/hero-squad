@@ -6,7 +6,7 @@ This is a project for ensembling hero squads. A user can add Heroes and choose a
 ## Technologies Used
 * Java.
 * Gradle.
-* JUnit 5.  
+* JUnit 4.  
 * Spark. 
 
 ## Known Bugs

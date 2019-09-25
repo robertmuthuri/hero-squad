@@ -1,4 +1,4 @@
-# Caesar Cipher Version 1.0
+# Hero-squad Version 1.0
 #### By **Robert Muthuri**
 ## Description
 This is a project for ensembling hero squads. A user can add Heroes and choose a squad for them. 
